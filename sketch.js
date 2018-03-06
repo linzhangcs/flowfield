@@ -15,7 +15,7 @@ function reset(){
   field = new FlowField(15);
   vehicles = new Array(numberOfV);
   for(var i = 0; i < numberOfV; i++){
-    vehicles[i] = new Vehicle(createVector(Math.ceil(random(width)), Math.ceil(random(height))), random(3, 5), random(0.3, 0.7));
+    vehicles[i] = new Vehicle(createVector(width/2, height/2), random(2, 4), random(0.3, 0.5));
   }
 }
 
