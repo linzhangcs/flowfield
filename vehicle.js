@@ -17,7 +17,7 @@ class Vehicle{
   }
 
   follow(field){
-    let desired = field.lookup(this.pos);
+    let desired = field.lookup(this.pos).copy();
     // console.log("looked up this pos: " + this.pos + "desired: "+ desired);
     desired.mult(this.maxSpeed);
     let steer = p5.Vector.sub(desired, this.vel);
