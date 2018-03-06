@@ -1,6 +1,7 @@
 let field;
 let vehicles;
 let numberOfV;
+
 let debug = false;
 
 function setup() {
@@ -22,12 +23,12 @@ function reset(){
 function draw() {
   background(255);
   field.init();
-  if(debug)field.display();
-
   for(v of vehicles){
     v.follow(field);
     v.run();
   }
+
+  if(debug)field.display();
 }
 
 function keyPressed(){

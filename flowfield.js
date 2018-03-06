@@ -16,15 +16,19 @@ class FlowField {
     for(let i = 0; i < this.rows; i++){
       let offsetC = 0;
       for(let j = 0; j < this.cols; j++){
-        let dirNoise = noise(offsetC, offsetR, this.t)*2*TWO_PI;
-        let dir = p5.Vector.fromAngle(dirNoise);
+        let angle = noise(offsetC, offsetR, this.t)*2*TWO_PI;
+        let dir = p5.Vector.fromAngle(angle);
+        let length = noise(i/5 + 40000, j/10 + 40000, this.t);
+        this.flowfield[i][j] = dir;
+        this.flowfield[i][j][0] = angle;
+        this.flowfield[i][j][1] = length;
+
         // let angleOffset = this.getNoise(i+this.cellSize,j+this.cellSize, this.t);
         // let dir = p5.Vector.fromAngle(angleOffset);
-
         // let angleOffset = this.getNoise(i+this.cellSize,j+this.cellSize);
         // let angleOffset = map(noise(offsetR, offsetC), 0, 1, 0, TWO_PI);
         // this.flowfield[i][j] = createVector(cos(angleOffset), sin(angleOffset));
-        this.flowfield[i][j] = dir;
+        // this.flowfield[i][j] = dir;
         offsetC += 0.1;
       }
       offsetR += 0.1;
@@ -32,21 +36,19 @@ class FlowField {
     }
   }
 
-  drawVector(v, x, y, s){
-    let vCopy = v.copy();
-    push();
-    translate(x, y);
-    stroke(0, 200);
-    rotate(vCopy.heading());
-    let l = vCopy.mag()*s;
-    line(0, 0, l, 0);
-    pop();
-  }
-
   display(){
     for(let i = 0; i < this.rows; i++){
       for(let j = 0; j < this.cols; j++){
-        this.drawVector(this.flowfield[i][j], i*this.cellSize, j*this.cellSize, this.cellSize-2);
+        let x =  i*this.cellSize;
+        let y =  j*this.cellSize;
+
+        push();
+        translate(x, y);
+        stroke(0, 200);
+        rotate(this.flowfield[i][j][0]);
+        let l = this.flowfield[i][j][1]*15;
+        line(0, 0, l, 0);
+        pop();
       }
     }
   }
