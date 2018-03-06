@@ -18,7 +18,7 @@ function setup() {
 
 function draw() {
   background(255);
-  field.display();
+  // field.display();
   for(v of vehicles){
     v.follow(field);
     v.run();
